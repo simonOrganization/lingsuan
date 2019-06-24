@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">灵算</string>
+
+    <!-- Permission grant text -->
+    <string name="grant_tip_message">为保证正常使用体验，请为应用授权</string>
+    <string name="grant_tip_message2">为保证正常使用体验，请进入设置为应用授权</string>
+    <string name="grant_btn_setting">设置</string>
+    <string name="grant_fail_title">授权失败</string>
+    <string name="grant_fail_btn">重新获取</string>
+    <string name="grant_fail_btn_exit">退出应用</string>
+    <string name="grant_fail_phone">权限只是用做获取设备标识码，以便为您提供更好的服务</string>
+    <string name="grant_fail_camera">权限只是用做拍摄照片使用，以便为您提供更好的服务</string>
+    <string name="grant_fail_sdcard">权限只是用做存储照片使用，以便为您提供更好的服务</string>
+    <string name="grant_fail_phone1">您选择了不再提醒授权，请进入设置-应用中为应用授权</string>
+    <string name="grant_location_failure">拒绝位置授权后将无法获取到来自皇包车的订单，请选择允许授权以保证您可以正常接单。</string>
+    <string name="grant_location_failure2">拒绝位置授权后将无法获取到来自皇包车的订单，请进入设置开启位置授权以保证您可以正常接单。</string>
+    <string name="grant_location_ok">不接单了</string>
+    <string name="grant_location_request">允许授权</string>
+</resources>
