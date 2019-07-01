@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.ling.suandashi.activity.SecretActivity;
 import com.ling.suandashi.base.BasicActivity;
 import com.ling.suandashi.data.UserSession;
 import com.ling.suandashi.tools.MatcherUtils;
@@ -174,7 +175,7 @@ public class SplashActivity extends BasicActivity {
      */
     private void gotoLoginNext() {
         //检查用户注册状态
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+        Intent intent = new Intent(SplashActivity.this, SecretActivity.class);
         startActivity(intent);
         finishHandler.removeCallbacksAndMessages(null);
         finish();

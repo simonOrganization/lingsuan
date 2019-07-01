@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.ButterKnife;
 
 import android.view.LayoutInflater;
 
@@ -25,7 +24,6 @@ public class BasicActivity extends AppCompatActivity implements IBaseView{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         inflater = LayoutInflater.from(getApplicationContext());
-        ButterKnife.bind(this);
     }
 
     @Override
