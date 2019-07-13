@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroud_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_title_view"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginLeft="18dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/mine_edition_banner"/>
+
+    <RelativeLayout
+        android:id="@+id/version_agreement_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
+        <TextView
+            android:id="@+id/version_agreement_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#915222"
+            android:textStyle="bold"
+            android:text="用户协议"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#7D7973"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/version_agreement_tv"
+            android:text="请认真阅读用户协议"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/mine_more"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/version_secret_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
+        <TextView
+            android:id="@+id/version_secret_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#915222"
+            android:textStyle="bold"
+            android:text="隐私协议"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#7D7973"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/version_secret_tv"
+            android:text="请认真阅读隐私协议"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/mine_more"/>
+    </RelativeLayout>
+</LinearLayout>

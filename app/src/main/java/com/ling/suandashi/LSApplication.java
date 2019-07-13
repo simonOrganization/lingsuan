@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.multidex.MultiDexApplication;
 
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
+import com.ling.suandashi.data.Constants;
 import com.ling.suandashi.tools.DialogUtils;
 
 import java.util.LinkedList;
@@ -44,6 +46,9 @@ public class LSApplication extends MultiDexApplication implements Application.Ac
 
         //初始化全局弹窗
         initCommonDialog();
+
+        FeedbackAPI.init(this, Constants.ALIAS_BAICHUAN_KEY, Constants.ALIPAY_APP_SECRET); //初始化意见反馈sdk
+        FeedbackAPI.setBackIcon(R.mipmap.nav_back);
     }
 
     /**

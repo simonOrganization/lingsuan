@@ -2,6 +2,7 @@
 
 buildscript {
     repositories {
+        maven { url 'http://nexus.hbc.tech/nexus/content/groups/hbcAndroid/' }
         google()
         jcenter()
         
@@ -15,8 +16,10 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'http://nexus.hbc.tech/nexus/content/groups/hbcAndroid/' }
         google()
         jcenter()
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
         
     }
 }

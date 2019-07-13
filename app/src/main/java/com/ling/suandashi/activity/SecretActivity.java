@@ -142,7 +142,7 @@ public class SecretActivity extends BasicActivity{
 
     @OnClick(R.id.base_title_back)
     public void onClick(View view){
-        Toast.makeText(this,"点击返回",Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 

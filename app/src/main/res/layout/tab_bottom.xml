@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_height="62dp"
+    android:background="#00FFFFFF"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@mipmap/bar_bj"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/tab_yunshi_rl"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp">
+
+            <TextView
+                android:id="@+id/tab_yunshi_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#994D02"
+                android:textSize="11sp"
+                android:text="个人运势"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp"/>
+            <ImageView
+                android:id="@+id/tab_iv_yunshi_s"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="6dp"
+                android:visibility="visible"
+                android:src="@mipmap/tab_yunshi_admin"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tab_cesuan_rl"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tab_cesuan_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#994D02"
+                android:textSize="11sp"
+                android:text="命里测算"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp"/>
+            <ImageView
+                android:id="@+id/tab_iv_cesuan_s"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="6dp"
+                android:visibility="visible"
+                android:src="@mipmap/tab_cesuan_admin"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/tab_mine_rl"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_height="match_parent"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:id="@+id/tab_mine_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#994D02"
+                android:textSize="11sp"
+                android:text="个人中心"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp"/>
+            <ImageView
+                android:id="@+id/tab_iv_mine_s"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="6dp"
+                android:visibility="visible"
+                android:src="@mipmap/tab_mine_admin"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/tab_iv_yunshi_big"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="20dp"
+        android:visibility="gone"
+        android:src="@mipmap/tab_yunshi_select"/>
+
+    <ImageView
+        android:id="@+id/tab_iv_cesuan_big"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:src="@mipmap/tab_cesuan_select"/>
+
+    <ImageView
+        android:id="@+id/tab_iv_mine_big"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:visibility="gone"
+        android:src="@mipmap/tab_mine_select"/>
+</RelativeLayout>

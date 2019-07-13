@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.zhy.m.permission.MPermissions;
 
 import androidx.fragment.app.Fragment;
 
@@ -22,12 +21,6 @@ public class BaseFragment extends Fragment {
     public void onStop() {
         super.onStop();
         collapseSoftInputMethod();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**

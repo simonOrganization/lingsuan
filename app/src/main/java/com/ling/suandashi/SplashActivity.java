@@ -11,15 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.ling.suandashi.activity.SecretActivity;
+import com.cclx.mobile.permission.OnConsumerPermissionListener;
+import com.cclx.mobile.permission.OnDenyPermissionListener;
 import com.ling.suandashi.base.BasicActivity;
 import com.ling.suandashi.data.UserSession;
 import com.ling.suandashi.tools.MatcherUtils;
-import com.ling.suandashi.tools.PermissionRes;
-import com.ling.suandashi.tools.PermissionUtils;
-import com.zhy.m.permission.MPermissions;
-import com.zhy.m.permission.PermissionDenied;
-import com.zhy.m.permission.PermissionGrant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,50 +67,41 @@ public class SplashActivity extends BasicActivity {
      */
     private void init() {
         viewPager.setVisibility(View.GONE);
-        grantStorage();
+        grantPhone();
     }
     /**
      * 授权获取手机信息权限
      */
     private void grantPhone() {
-        MPermissions.requestPermissions(SplashActivity.this, PermissionRes.READ_PHONE_STATE, android.Manifest.permission.READ_PHONE_STATE);
-    }
-
-    @PermissionGrant(PermissionRes.READ_PHONE_STATE)
-    public void requestPhoneSuccess() {
-        grantStorage();
-    }
-
-    @PermissionDenied(PermissionRes.READ_PHONE_STATE)
-    public void requestPhoneFailed() {
-        PermissionUtils.getIns().showSettingDialog(this, android.Manifest.permission.READ_PHONE_STATE, new PermissionUtils.CallBackReListener() {
+        com.cclx.mobile.permission.PermissionUtils.getPermissions(this, new OnConsumerPermissionListener() {
             @Override
-            public void onReCall() {
-                grantPhone();
+            public void onAllowed(String permissionName, String permissionDesc) {
+                grantStorage();
             }
-        });
+        }, new OnDenyPermissionListener() {
+            @Override
+            public void onDeny(String permissionName, String permissionDesc) {
+                com.cclx.mobile.permission.PermissionUtils.showPromptDialog(LSApplication.GlobalContext,permissionDesc);
+            }
+        },android.Manifest.permission.READ_PHONE_STATE);
     }
+
 
     /**
      * 授权读取存储空间权限
      */
     private void grantStorage() {
-        MPermissions.requestPermissions(SplashActivity.this, PermissionRes.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
-
-    @PermissionGrant(PermissionRes.WRITE_EXTERNAL_STORAGE)
-    public void requestSdcardSuccess() {
-        gotoSetp();
-    }
-
-    @PermissionDenied(PermissionRes.WRITE_EXTERNAL_STORAGE)
-    public void requestSdcardFailed() {
-        PermissionUtils.getIns().showSettingDialog(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, new PermissionUtils.CallBackReListener() {
+        com.cclx.mobile.permission.PermissionUtils.getPermissions(this, new OnConsumerPermissionListener() {
             @Override
-            public void onReCall() {
-                grantStorage();
+            public void onAllowed(String permissionName, String permissionDesc) {
+                gotoSetp();
             }
-        });
+        }, new OnDenyPermissionListener() {
+            @Override
+            public void onDeny(String permissionName, String permissionDesc) {
+                com.cclx.mobile.permission.PermissionUtils.showPromptDialog(LSApplication.GlobalContext,permissionDesc);
+            }
+        },android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     private void gotoSetp() {
@@ -175,7 +162,7 @@ public class SplashActivity extends BasicActivity {
      */
     private void gotoLoginNext() {
         //检查用户注册状态
-        Intent intent = new Intent(SplashActivity.this, SecretActivity.class);
+        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finishHandler.removeCallbacksAndMessages(null);
         finish();

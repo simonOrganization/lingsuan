@@ -1,7 +1,6 @@
 package com.ling.suandashi.base;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 
 import com.ling.suandashi.LSApplication;
 import com.ling.suandashi.view.ZProgressDialog;
-import com.zhy.m.permission.MPermissions;
 
 import java.util.ArrayList;
 
@@ -88,11 +86,6 @@ public class BasicActivity extends AppCompatActivity implements IBaseView{
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     /**
