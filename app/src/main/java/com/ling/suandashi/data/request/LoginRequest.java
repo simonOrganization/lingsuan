@@ -19,9 +19,13 @@ public class LoginRequest extends BaseRequestData {
         params.put("password", password);
     }
 
+    public LoginRequest() {
+        super();
+    }
+
     @Override
     public String getUrl() {
-        return UrlLists.API_URL_LOGIN;
+        return UrlLists.API_HOME;
     }
 
     @Override

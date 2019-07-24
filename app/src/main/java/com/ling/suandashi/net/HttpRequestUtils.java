@@ -3,6 +3,7 @@ package com.ling.suandashi.net;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.ling.suandashi.BuildConfig;
@@ -12,6 +13,7 @@ import com.ling.suandashi.data.request.tools.HttpException;
 import com.ling.suandashi.data.request.RequestData;
 import com.ling.suandashi.data.request.tools.RequestResult;
 import com.ling.suandashi.data.request.tools.ResponseListener;
+import com.ling.suandashi.tools.AesUtil;
 import com.ling.suandashi.view.ZProgressDialog;
 
 import org.json.JSONException;
@@ -212,12 +214,18 @@ public class HttpRequestUtils {
     /**
      * 解析返回Java接口返回值
      */
-    public static RequestResult parseResponse(String jsonStr) throws JSONException {
+    public RequestResult parseResponse(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
         RequestResult requestResult = new RequestResult();
-        requestResult.setStatus(jsonObject.optInt("status"));
+        requestResult.setStatus(jsonObject.optInt("code"));
+        String data = AesUtil.decrypt(jsonObject.optString("data"),"G$B#SN39T@18JCZR","0123456789");
+        try {
+            Log.e("--------------","----data----=="+data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         requestResult.setData(jsonObject.optString("data"));
-        requestResult.setMessage(jsonObject.optString("message"));
+        requestResult.setMessage(jsonObject.optString("msg"));
         return requestResult;
     }
 }

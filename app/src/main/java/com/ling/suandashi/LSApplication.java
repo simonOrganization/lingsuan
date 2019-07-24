@@ -42,6 +42,7 @@ public class LSApplication extends MultiDexApplication implements Application.Ac
     @Override
     public void onCreate() {
         super.onCreate();
+        registerActivityLifecycleCallbacks(this);
         GlobalContext = this;
 
         //初始化全局弹窗

@@ -14,4 +14,7 @@ public class UrlLists {
      * x0024
      */
     public static final String API_URL_LOGIN = BuildConfig.API_SERVER_URL + "guides/accounts/login";
+
+
+    public static final String API_HOME = BuildConfig.API_SERVER_URL + "?ct=service&ac=init";
 }
