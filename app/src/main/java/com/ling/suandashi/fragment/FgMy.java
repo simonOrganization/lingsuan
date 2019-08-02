@@ -3,9 +3,12 @@ package com.ling.suandashi.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.bumptech.glide.Glide;
@@ -14,19 +17,33 @@ import com.cclx.mobile.permission.OnDenyPermissionListener;
 import com.cclx.mobile.permission.PermissionUtils;
 import com.ling.suandashi.LSApplication;
 import com.ling.suandashi.R;
+import com.ling.suandashi.activity.AddUserActivity;
 import com.ling.suandashi.activity.AgreementActivity;
 import com.ling.suandashi.activity.LoginActivity;
 import com.ling.suandashi.activity.SecretActivity;
 import com.ling.suandashi.activity.UserManagerActivity;
 import com.ling.suandashi.activity.VersionActivity;
 import com.ling.suandashi.base.BaseFragment;
+import com.ling.suandashi.base.DefaultListener;
+import com.ling.suandashi.data.UserSession;
+import com.ling.suandashi.data.entity.User;
+import com.ling.suandashi.data.request.ContactListRequest;
+import com.ling.suandashi.data.request.RequestData;
+import com.ling.suandashi.data.request.tools.APIException;
+import com.ling.suandashi.data.request.tools.ErrorTools;
+import com.ling.suandashi.data.request.tools.RequestResult;
+import com.ling.suandashi.data.request.tools.ResponseListener;
+import com.ling.suandashi.net.HttpRequestUtils;
+import com.ling.suandashi.tools.CommonUtils;
 import com.ling.suandashi.tools.DialogUtils;
 
 import java.io.File;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -37,7 +54,19 @@ import butterknife.OnClick;
  */
 public class FgMy extends BaseFragment {
 
-    Long cacheSize;
+
+    @BindView(R.id.mine_order_rl)
+    RelativeLayout order_rl;//点击进入我的订单
+    @BindView(R.id.mine_login_rl)
+    RelativeLayout nologin_root;//没有登录时用户信息
+    @BindView(R.id.mine_login_login_root)
+    RelativeLayout login_root;//登陆后用户信息
+    @BindView(R.id.mine_login_login_name)
+    TextView userName;//用户姓名
+    @BindView(R.id.mine_login_login_birthday)
+    TextView userBirthday;//用户生日
+    
+    User mUser;
 
     @Nullable
     @Override
@@ -47,15 +76,85 @@ public class FgMy extends BaseFragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        showUserInfo();
+    }
 
-    @OnClick({R.id.version_cache_rl,R.id.version_version_rl,R.id.version_kefu_rl,R.id.version_evaluate_rl})
+    private void showUserInfo() {
+        if(!TextUtils.isEmpty(UserSession.getInstances().getValue(UserSession.USER_SUB_NAME,""))){
+            userName.setText(UserSession.getInstances().getValue(UserSession.USER_SUB_NAME,""));
+
+            userBirthday.setText("阳历："+CommonUtils.birthdayToDay(UserSession.getInstances().getValue(UserSession.USER_SUB_BIRTHDAY,""))
+                    +" "+UserSession.getInstances().getValue(UserSession.USER_SUB_HOUR,"")+"时");
+            nologin_root.setVisibility(View.GONE);
+            login_root.setVisibility(View.VISIBLE);
+        }else {
+            login_root.setVisibility(View.GONE);
+            nologin_root.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void showUserInfo(User user){
+        userName.setText(user.getName());
+        userBirthday.setText("阳历："+CommonUtils.birthdayToDay(user.getBrithday())+" "+user.getHour()+"时");
+        nologin_root.setVisibility(View.GONE);
+        login_root.setVisibility(View.VISIBLE);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUserData();
+    }
+
+    private void loadUserData() {
+        ContactListRequest request = new ContactListRequest(UserSession.getInstances().getValue(UserSession.USER_ID,""));
+        HttpRequestUtils requestUtils = new HttpRequestUtils(getContext(), request, new ResponseListener<List<User>>(){
+            @Override
+            public void onResponse(List<User> list) {
+                if(list.size() > 0){//有用户则显示
+                    if(UserSession.getInstances().getValue(UserSession.USER_SUB_ID,0) > 0){//显示保存的用户信息
+                        for(User user : list){
+                            if(user.getId() == UserSession.getInstances().getValue(UserSession.USER_SUB_ID,0)){
+                                mUser = user;
+                                showUserInfo(user);
+                            }
+                        }
+                    }else {
+                        mUser = list.get(0);
+                        UserSession.getInstances().saveUserUsuallyInfo(mUser);
+                        showUserInfo(mUser);
+                    }
+                }else {
+                    login_root.setVisibility(View.GONE);
+                    nologin_root.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(RequestData params, RequestResult result) {
+                ErrorTools.doError(getContext(),params,result.getMessage(),result.getStatus());
+            }
+            @Override
+            public void onNetworkError(APIException error) {
+                ErrorTools.doNetError(getContext(),error);
+            }
+        });
+        requestUtils.setShowLoader(false);
+        requestUtils.execute();
+    }
+
+    @OnClick({R.id.version_cache_rl,R.id.version_version_rl,R.id.version_kefu_rl,R.id.version_evaluate_rl,R.id.mine_login_rl,
+                R.id.mine_login_login_qiehuan})
     public void onClick(View view){
+        Intent intent;
         switch (view.getId()){
             case R.id.version_cache_rl:
-                DialogUtils.getInstances().show("清除缓存", "将删除"+getCacheSize()+"缓存的图片和系统预填信息", "确定", "取消", new DialogInterface.OnClickListener() {
+                DialogUtils.getInstances().show("清除缓存", "将删除"+ CommonUtils.getCacheSize()+"缓存的图片和系统预填信息", "确定", "取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteCache();
+                        CommonUtils.deleteCache();
                     }
                 }, new DialogInterface.OnClickListener() {
                     @Override
@@ -64,17 +163,24 @@ public class FgMy extends BaseFragment {
                     }
                 });
                 break;
-            case R.id.version_version_rl:
-                Intent intent = new Intent(getContext(), VersionActivity.class);
+            case R.id.mine_login_login_qiehuan://切换用户
+                intent = new Intent(getContext(), UserManagerActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.version_kefu_rl:
-                //意见反馈
+            case R.id.version_version_rl://版本说明
+                intent = new Intent(getContext(), VersionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.version_kefu_rl://意见反馈
                 grantCamera();
                 break;
-            case R.id.version_evaluate_rl:
-                Intent intent1 = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent1);
+            case R.id.version_evaluate_rl://评价应用
+                intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.mine_login_rl://添加用户信息
+                intent = new Intent(getContext(), AddUserActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -98,78 +204,4 @@ public class FgMy extends BaseFragment {
         },android.Manifest.permission.CAMERA);
     }
 
-    private long calculateCacheFileSize() {
-        long length = 0L;
-        try {
-            String cachePath = Glide.getPhotoCacheDir(LSApplication.GlobalContext).getPath();
-            File cacheDir1 = new File(cachePath);
-            if (cacheDir1 != null) {
-                length += getFileOrDirSize(cacheDir1);
-            }
-        } catch (Exception e) {
-
-        }
-        return length;
-    }
-
-    public static long getFileOrDirSize(File file) {
-        if (!file.exists()) return 0;
-        if (!file.isDirectory()) return file.length();
-        long length = 0;
-        File[] list = file.listFiles();
-        if (list != null) { // 文件夹被删除时, 子文件正在被写入, 文件属性异常返回null.
-            for (File item : list) {
-                length += getFileOrDirSize(item);
-            }
-        }
-
-        return length;
-    }
-
-    private String getCacheSize() {
-        String result = "";
-        cacheSize = calculateCacheFileSize();
-        long oneKB = 1024;
-        long oneMB = 1024 * 1024;
-        long oneGB = 1024 * 1024 * 1024;
-        if (cacheSize == 0) {
-            return "";
-        } else if (cacheSize > 0 && cacheSize < oneKB) {
-            return "1K";
-        } else if (cacheSize > oneKB && cacheSize < oneMB) {
-            long num = cacheSize / oneKB;
-            return num + "K";
-        } else if (cacheSize > oneMB && cacheSize < oneGB) {
-            long num = cacheSize / oneMB;
-            return num + "M";
-        } else if (cacheSize > oneGB) {
-            long num = cacheSize / oneGB;
-            return num + "G";
-        }
-        return result;
-    }
-    public static void deleteCache() {
-        try {
-            String cachePath = Glide.getPhotoCacheDir(LSApplication.GlobalContext).getPath();
-            File cacheDir1 = new File(cachePath);
-            if (cacheDir1.exists()) {
-                delete(cacheDir1);
-            }
-        } catch (Exception e) {
-
-        }
-    }
-    public static void delete(File file) {
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                File tmpFile = files[i];
-                if (tmpFile.isDirectory()) {
-                    delete(tmpFile);
-                } else {
-                    tmpFile.delete();
-                }
-            }
-        }
-    }
 }

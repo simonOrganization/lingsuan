@@ -57,6 +57,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@+id/login_sub_title"
+        android:inputType="number"
         android:background="@null"
         android:textCursorDrawable="@null"
         android:hint="请输入手机号"/>

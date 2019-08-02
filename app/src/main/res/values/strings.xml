@@ -16,4 +16,10 @@
     <string name="grant_location_failure2">拒绝位置授权后将无法获取到来自皇包车的订单，请进入设置开启位置授权以保证您可以正常接单。</string>
     <string name="grant_location_ok">不接单了</string>
     <string name="grant_location_request">允许授权</string>
+
+
+    <string name="account_must_phone">输入的手机号不对</string>
+    <string name="password_length">请输入您收到的验证码</string>
+
+    <string name="server_internal_exception1">访问出现异常，请稍后再试(%1$s)</string>
 </resources>

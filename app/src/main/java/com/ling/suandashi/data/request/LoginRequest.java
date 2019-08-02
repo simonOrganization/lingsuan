@@ -8,33 +8,28 @@ import com.ling.suandashi.data.request.tools.RequestResult;
 import org.json.JSONException;
 
 /**
- * 登录操作
+ * 手机号注册
  */
 public class LoginRequest extends BaseRequestData {
 
-    public LoginRequest(String areaCode, String userphone, String password) {
+    public LoginRequest(String userphone,String areaCode) {
         super();
-        params.put("areaCode", areaCode);
-        params.put("mobile", userphone);
-        params.put("password", password);
-    }
-
-    public LoginRequest() {
-        super();
+        params.put("code", areaCode);
+        params.put("phone", userphone);
     }
 
     @Override
     public String getUrl() {
-        return UrlLists.API_HOME;
+        return UrlLists.API_LOGIN;
     }
 
     @Override
-    public User getResponse(RequestResult result) throws JSONException {
+    public User getResponse(RequestResult result) {
         return new User().parse(result.getData());
     }
 
     @Override
     public String getApiCode() {
-        return "30024";
+        return "30002";
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.cclx.mobile.permission.OnConsumerPermissionListener;
 import com.cclx.mobile.permission.OnDenyPermissionListener;
 import com.ling.suandashi.base.BasicActivity;
 import com.ling.suandashi.data.UserSession;
+import com.ling.suandashi.tools.CommonUtils;
 import com.ling.suandashi.tools.MatcherUtils;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ public class SplashActivity extends BasicActivity {
         public void handleMessage(Message msg) {
             //记录首次运行标
             String versionInfo = BuildConfig.VERSION_NAME;
-            UserSession.getInstances(SplashActivity.this).saveValue("version", versionInfo);
+            UserSession.getInstances().saveValue("version", versionInfo);
             gotoLoginNext();
         }
 
@@ -55,6 +57,9 @@ public class SplashActivity extends BasicActivity {
 
     private void initViews(){
         viewPager = findViewById(R.id.loading_viewpage);
+        if(TextUtils.isEmpty(UserSession.getInstances().getValue(UserSession.USER_ID,""))){
+            UserSession.getInstances().saveValue(UserSession.USER_ID, CommonUtils.getPhoneIMEI()+"92");
+        }
     }
 
     @Override
@@ -112,7 +117,7 @@ public class SplashActivity extends BasicActivity {
          */
         if (iSFirst() || isNewVersion()) {
             viewPager.setVisibility(View.VISIBLE);
-            UserSession.getInstances(this).saveValue("isFirst", "1");
+            UserSession.getInstances().saveValue("isFirst", "1");
 
             final List<View> views = new ArrayList<>();
             LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(
@@ -174,7 +179,7 @@ public class SplashActivity extends BasicActivity {
      * @return
      */
     private boolean iSFirst() {
-        String isFirString = UserSession.getInstances(SplashActivity.this).getValue("isFirst", "");
+        String isFirString = UserSession.getInstances().getValue("isFirst", "");
         return MatcherUtils.isNull(isFirString);
     }
     /**
@@ -184,7 +189,7 @@ public class SplashActivity extends BasicActivity {
      */
     private boolean isNewVersion() {
         String versionInfo = BuildConfig.VERSION_NAME;
-        return !UserSession.getInstances(SplashActivity.this).getValue("version", "").equals(versionInfo);
+        return !UserSession.getInstances().getValue("version", "").equals(versionInfo);
     }
 
     /**

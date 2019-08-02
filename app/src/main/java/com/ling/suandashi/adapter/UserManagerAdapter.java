@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ling.suandashi.R;
+import com.ling.suandashi.data.entity.User;
+
 import java.util.List;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,13 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.MyHolder> {
     private Context mContext;
     private MyItemClickListener mItemClickListener = null;
-    private List<String> mDatas;
+    private List<User> mDatas;
 
     public interface MyItemClickListener {
-        void onItemClick(View v, int positon, String data);
+        void onItemClick(View v, int positon, User data);
     }
 
-    public UserManagerAdapter(Context context, List<String> datas) {
+    public UserManagerAdapter(Context context, List<User> datas) {
         mContext = context;
         mDatas = datas;
     }
@@ -51,20 +53,24 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
         return mDatas.size();
     }
 
-    public void addDatas(List<String> data) {
+    public void addDatas(List<User> data) {
         mDatas.addAll(data);
     }
 
     class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private MyItemClickListener mListener;
-        TextView title;
-        TextView delete;
+        TextView name;
+        TextView birthday;
+        ImageView image;//选择图片
+        ImageView delete;
 
         public MyHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
             this.mListener = listener;
-            title = itemView.findViewById(R.id.tv_quantity);
-            delete = itemView.findViewById(R.id.tv_delete);
+            name = itemView.findViewById(R.id.user_manager_adapter_name);
+            birthday = itemView.findViewById(R.id.user_manager_adapter_time);
+            image = itemView.findViewById(R.id.user_manager_adapter_view);
+            delete = itemView.findViewById(R.id.user_manager_adapter_delete);
             delete.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
@@ -72,12 +78,18 @@ public class UserManagerAdapter extends RecyclerView.Adapter<UserManagerAdapter.
         @Override
         public void onClick(View v) {
             if (mListener != null) {
-                mListener.onItemClick(v, getPosition(), mDatas.get(getPosition()));
+                mListener.onItemClick(v, getAdapterPosition(), mDatas.get(getAdapterPosition()));
             }
         }
 
-        public void setRefreshData(String bean, int position) {
-            title.setText(bean);
+        public void setRefreshData(User bean, int position) {
+            name.setText(bean.getName());
+            birthday.setText(bean.getBrithday());
+            if(bean.isSelect()){
+                image.setVisibility(View.VISIBLE);
+            }else {
+                image.setVisibility(View.INVISIBLE);
+            }
         }
     }
 }

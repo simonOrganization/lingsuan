@@ -16,7 +16,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="22dp">
+                android:layout_marginTop="25dp">
 
                 <ImageView
                     android:layout_width="30dp"
@@ -39,12 +39,111 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/mine_login_rl"
                 android:layout_width="match_parent"
-                android:layout_height="68dp">
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <RelativeLayout
+                    android:id="@+id/mine_pic_bg"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/user_defaul_bg"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/mine_pic_iv"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/icon_default"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mine_pic_bg"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#894009"
+                        android:textStyle="bold"
+                        android:text="填写你的信息"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#80403E3B"
+                        android:layout_marginTop="5dp"
+                        android:textSize="14sp"
+                        android:text="测算避免二次填写，定制个人运势"/>
+                </LinearLayout>
 
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/mine_login_login_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                <RelativeLayout
+                    android:id="@+id/mine_login_login_rl"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/user_defaul_bg"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/user_admin"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/mine_login_login_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/mine_login_login_rl"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="18dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/mine_login_login_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#403E3B"
+                        android:textStyle="bold"
+                        android:text="姓名"
+                        android:textSize="18sp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/mine_login_login_birthday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#70403E3B"
+                            android:text="1995.04.18"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/mine_login_login_qiehuan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#403E3B"
+                            android:layout_marginLeft="11dp"
+                            android:text="切换"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mine_order_rl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14dp"

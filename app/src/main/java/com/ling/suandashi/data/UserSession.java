@@ -2,6 +2,10 @@ package com.ling.suandashi.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+
+import com.ling.suandashi.LSApplication;
+import com.ling.suandashi.data.entity.User;
 
 
 /**
@@ -11,6 +15,16 @@ import android.content.SharedPreferences;
 public class UserSession {
 
     private static final String SHAR_RES_FILE = "user";
+
+    public static final String USER_ID = "user_id";
+    public static final String USER_SUB_ID = "user_sub_id";
+    public static final String USER_SUB_NAME = "user_sub_name";
+    public static final String USER_SUB_BIRTHDAY = "user_sub_birthday";
+    public static final String USER_SUB_HOUR = "user_sub_hour";
+
+    public static final String HTTP_KEY = "G$B#SN39T@18JCZR";
+    public static final String HTTP_IV = "jdpwlXI5l3bxn3X6";
+
     private static UserSession resPrefer;
     private SharedPreferences refPerences;
 
@@ -18,9 +32,9 @@ public class UserSession {
         refPerences = context.getSharedPreferences(SHAR_RES_FILE, Context.MODE_PRIVATE);
     }
 
-    public static UserSession getInstances(Context context) {
+    public static UserSession getInstances() {
         if (resPrefer == null) {
-            resPrefer = new UserSession(context);
+            resPrefer = new UserSession(LSApplication.GlobalContext);
         }
         return resPrefer;
     }
@@ -68,9 +82,25 @@ public class UserSession {
     /**
      * 保存常用的返回信息
      */
-    public void saveUserUsuallyInfo(String user) {
-//        if (!TextUtils.isEmpty(user.getToken())) {
-//            saveValue("token", user.getToken());
-//        }
+    public void saveUserUsuallyInfo(User user) {
+        if (user.getId() > 0) {
+            saveValue(USER_SUB_ID, user.getId());
+        }
+        if (!TextUtils.isEmpty(user.getName())) {
+            saveValue(USER_SUB_NAME, user.getName());
+        }
+        if (!TextUtils.isEmpty(user.getBrithday())) {
+            saveValue(USER_SUB_BIRTHDAY, user.getBrithday());
+        }
+        if (!TextUtils.isEmpty(user.getHour())) {
+            saveValue(USER_SUB_HOUR, user.getHour());
+        }
+    }
+
+    public void deleteUserInfo(){
+        saveValue(USER_SUB_ID, 0);
+        saveValue(USER_SUB_NAME, "");
+        saveValue(USER_SUB_BIRTHDAY, "");
+        saveValue(USER_SUB_HOUR, "");
     }
 }

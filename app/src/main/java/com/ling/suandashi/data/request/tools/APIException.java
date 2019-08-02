@@ -9,12 +9,12 @@ package com.ling.suandashi.data.request.tools;
 public class APIException extends HttpException {
 
     HttpException exception;
-    String errorCode;
+    String apiCode;
 
-    public APIException(HttpException exception, String errorCode) {
+    public APIException(HttpException exception, String apiCode) {
         super(exception.getCode(), exception.getMessage());
         this.exception = exception;
-        this.errorCode = errorCode;
+        this.apiCode = apiCode;
     }
 
     public HttpException getException() {
@@ -25,11 +25,11 @@ public class APIException extends HttpException {
         this.exception = exception;
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getApiCode() {
+        return apiCode;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setApiCode(String apiCode) {
+        this.apiCode = apiCode;
     }
 }

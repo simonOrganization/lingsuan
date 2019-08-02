@@ -32,7 +32,7 @@ public class ZProgressDialog extends Dialog {
     /**
      * @param context
      */
-    public ZProgressDialog(Context context) {
+    public ZProgressDialog(Context context, int resId) {
         super(context, R.style.Z_progress_dialog);
         this.context = context;
 
@@ -56,11 +56,9 @@ public class ZProgressDialog extends Dialog {
 
     /**
      * 设置动画帧图片的进度条
-     *
      * @param context
-     * @param resId
      */
-    public ZProgressDialog(Context context, int resId) {
+    public ZProgressDialog(Context context) {
         super(context, R.style.Z_progress_dialog);
         this.context = context;
 
@@ -68,21 +66,18 @@ public class ZProgressDialog extends Dialog {
 
         //加载布局文件
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.z_progress_dialog, null);
+        View view = inflater.inflate(R.layout.z_animi_progress_dialog, null);
         img = (ImageView) view.findViewById(R.id.z_progress_dialog_img);
         txt = (TextView) view.findViewById(R.id.z_progress_dialog_txt);
 
-        img.setImageResource(resId);
-        mLoadingAinm = (AnimationDrawable) img.getDrawable();
-        img.post(new Runnable() {
+        //获取背景，并将其强转成AnimationDrawable
+        AnimationDrawable animationDrawable = (AnimationDrawable) img.getBackground();
+        //判断是否在运行
+        if(!animationDrawable.isRunning()){
+            //开启帧动画
+            animationDrawable.start();
+        }
 
-            @Override
-            public void run() {
-                mLoadingAinm.start();
-            }
-        });
-
-        txt.setText("拼命加载中...");
         setContentView(view); //dialog添加视图
     }
 

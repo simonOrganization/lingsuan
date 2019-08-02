@@ -12,49 +12,73 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/user_manager_adapter_view"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="13dp"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/user_select"/>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/user_pic_bg"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
                 android:src="@mipmap/user_admin"/>
         </RelativeLayout>
 
-
-        <TextView
-            android:id="@+id/tv_quantity"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="2dp"
-            android:layout_marginStart="2dp"
-            android:textColor="#FF34393F"
-            android:textSize="14sp" />
+            android:layout_marginLeft="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/user_manager_adapter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#915222"
+                android:text="姓名"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/user_manager_adapter_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#EB9D47"
+                android:layout_marginTop="2dp"
+                android:text="1995.04.18"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="1dp"/>
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/list_edit"/>
 
     </LinearLayout>
 
 
-
-    <TextView
-        android:id="@+id/tv_delete"
+    <RelativeLayout
         android:layout_width="60dp"
-        android:layout_height="match_parent"
-        android:background="#FFF55030"
-        android:gravity="center"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
-        android:text="delete"
-        android:textColor="#FFFFFFFF"
-        android:textSize="14sp" />
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/user_manager_adapter_delete"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/user_delete"
+            android:layout_marginLeft="20dp"/>
+    </RelativeLayout>
 
 </LinearLayout>

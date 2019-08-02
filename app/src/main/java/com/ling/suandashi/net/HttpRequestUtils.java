@@ -6,6 +6,8 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.ling.suandashi.BuildConfig;
 import com.ling.suandashi.data.UserSession;
 import com.ling.suandashi.data.request.tools.APIException;
@@ -14,8 +16,10 @@ import com.ling.suandashi.data.request.RequestData;
 import com.ling.suandashi.data.request.tools.RequestResult;
 import com.ling.suandashi.data.request.tools.ResponseListener;
 import com.ling.suandashi.tools.AesUtil;
+import com.ling.suandashi.tools.LSLog;
 import com.ling.suandashi.view.ZProgressDialog;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -152,25 +156,35 @@ public class HttpRequestUtils {
 
         getRetrofiTools();
 
-        if(params.getRequestMethod().equals(RetrofitTools.RequestType.BODY)){
-            mTools.json(params.getUrl(),params.getBody(),mSubscriber);
-        }else {
-            RetrofitRequest request = null;
-            if(params.getRequestMethod().equals(RetrofitTools.RequestType.GET)){
-                request = new RetrofitRequest.Builder().addParams(params.getParams()).get().url(params.getUrl()).build();
-            }else if(params.getRequestMethod().equals(RetrofitTools.RequestType.POST)){
-                request = new RetrofitRequest.Builder().post(params.getParams()).url(params.getUrl()).build();
-            }
-            mTools.executResponse(request, mSubscriber);
+//        if(params.getRequestMethod().equals(RetrofitTools.RequestType.BODY)){
+//            mTools.json(params.getUrl(),params.getBody(),mSubscriber);
+//        }else {
+//            RetrofitRequest request = null;
+//            if(params.getRequestMethod().equals(RetrofitTools.RequestType.GET)){
+//                request = new RetrofitRequest.Builder().addParams(params.getParams()).get().url(params.getUrl()).build();
+//            }else if(params.getRequestMethod().equals(RetrofitTools.RequestType.POST)){
+//                request = new RetrofitRequest.Builder().post(params.getParams()).url(params.getUrl()).build();
+//            }
+//            mTools.executResponse(request, mSubscriber);
+//        }
+        try {
+            String data = AesUtil.encrypt(new Gson().toJson(params.getParams()),UserSession.HTTP_KEY,UserSession.HTTP_IV);
+            data = data.replace("\n","");
+
+            JSONObject jsonData = new JSONObject();
+            jsonData.put("data",data.trim());
+
+            mTools.json(params.getUrl(),jsonData.toString(),mSubscriber);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
     }
 
     private void getRetrofiTools() {
         if (mTools == null) {
             Map<String, String> headers = new HashMap<>();
-            headers.put("ak", UserSession.getInstances(mContext).getValue("session", "")); //accessKey,访问设备key
-            headers.put("ut", UserSession.getInstances(mContext).getValue("token", "")); //token,用户token
             headers.put("ts", String.valueOf(System.currentTimeMillis())); //timestamp,时间戳
             headers.put("osVersion", Build.VERSION.RELEASE);//版本号
             headers.put("Connection", "close");
@@ -218,14 +232,10 @@ public class HttpRequestUtils {
         JSONObject jsonObject = new JSONObject(jsonStr);
         RequestResult requestResult = new RequestResult();
         requestResult.setStatus(jsonObject.optInt("code"));
-        String data = AesUtil.decrypt(jsonObject.optString("data"),"G$B#SN39T@18JCZR","0123456789");
-        try {
-            Log.e("--------------","----data----=="+data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        requestResult.setData(jsonObject.optString("data"));
+        String data = AesUtil.decrypt(jsonObject.optString("data"),UserSession.HTTP_KEY,UserSession.HTTP_IV);
+        requestResult.setData(data);
         requestResult.setMessage(jsonObject.optString("msg"));
+        LSLog.e("----data----=="+data);
         return requestResult;
     }
 }
