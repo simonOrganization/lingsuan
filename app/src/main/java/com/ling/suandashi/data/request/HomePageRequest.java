@@ -1,6 +1,8 @@
 package com.ling.suandashi.data.request;
 
 
+import android.text.TextUtils;
+
 import com.ling.suandashi.data.UrlLists;
 import com.ling.suandashi.data.entity.HomePageBean;
 import com.ling.suandashi.data.entity.User;
@@ -9,17 +11,15 @@ import com.ling.suandashi.data.request.tools.RequestResult;
 import org.json.JSONException;
 
 /**
- * 登录操作
+ * 首页
  */
 public class HomePageRequest extends BaseRequestData {
 
     public HomePageRequest(String brithday) {
         super();
-        params.put("brithday", brithday);
-    }
-
-    public HomePageRequest() {
-        super();
+        if(!TextUtils.isEmpty(brithday)){
+            params.put("brithday", brithday);
+        }
     }
 
     @Override

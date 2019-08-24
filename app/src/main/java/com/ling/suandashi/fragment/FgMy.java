@@ -82,6 +82,9 @@ public class FgMy extends BaseFragment {
         showUserInfo();
     }
 
+    /**
+     * 用户展示信息
+     */
     private void showUserInfo() {
         if(!TextUtils.isEmpty(UserSession.getInstances().getValue(UserSession.USER_SUB_NAME,""))){
             userName.setText(UserSession.getInstances().getValue(UserSession.USER_SUB_NAME,""));
@@ -96,6 +99,9 @@ public class FgMy extends BaseFragment {
         }
     }
 
+    /**
+     * 用户展示信息
+     */
     private void showUserInfo(User user){
         userName.setText(user.getName());
         userBirthday.setText("阳历："+CommonUtils.birthdayToDay(user.getBrithday())+" "+user.getHour()+"时");
@@ -119,6 +125,7 @@ public class FgMy extends BaseFragment {
                             if(user.getId() == UserSession.getInstances().getValue(UserSession.USER_SUB_ID,0)){
                                 mUser = user;
                                 showUserInfo(user);
+                                UserSession.getInstances().saveUserUsuallyInfo(mUser);
                             }
                         }
                     }else {

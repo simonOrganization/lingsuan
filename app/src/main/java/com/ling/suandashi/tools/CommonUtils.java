@@ -2,6 +2,7 @@ package com.ling.suandashi.tools;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
+import android.content.Context;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
@@ -108,6 +109,11 @@ public class CommonUtils {
         return tm.getDeviceId();
     }
 
+    /**
+     * 时间格式转换yyyy-MM-dd到yyyy年MM月dd日
+     * @param birthday
+     * @return
+     */
     public static String birthdayToDay(String birthday){
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -117,5 +123,74 @@ public class CommonUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+    /**
+     * 时间格式转换yyyy-MM-dd到yyyy.MM
+     * @param time
+     * @return
+     */
+    public static String timeToYearMonth(String time){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM");
+            return format2.format(format.parse(time));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 时间格式转换yyyy-MM-dd到yyyy.MM
+     * @param time
+     * @return
+     */
+    public static String timeToWeek(String time){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format2 = new SimpleDateFormat("EEEE");
+            return format2.format(format.parse(time));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /**
+     * 时间格式转换yyyy-MM-dd到yyyy.MM
+     * @param time
+     * @return
+     */
+    public static String timeToToday(String time){
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format2 = new SimpleDateFormat("dd");
+            return format2.format(format.parse(time));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    /**
+     * 根据手机分辨率从DP转成PX
+     * @param dpValue
+     * @return
+     */
+    public static int dip2px(float dpValue) {
+        float scale = LSApplication.GlobalContext.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 根据手机的分辨率PX(像素)转成DP
+     * @param pxValue
+     * @return
+     */
+    public static int px2dip(float pxValue) {
+        float scale = LSApplication.GlobalContext.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
     }
 }

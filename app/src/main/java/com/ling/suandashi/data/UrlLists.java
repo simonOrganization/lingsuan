@@ -20,6 +20,10 @@ public class UrlLists {
      */
     public static final String API_GET_CODE = BuildConfig.API_SERVER_URL + "?ct=user&ac=sendSms";
     /**
+     * 模块列表  004
+     */
+    public static final String API_MODELU_LIST = BuildConfig.API_SERVER_URL + "?ct=service&ac=module";
+    /**
      * 删除联系人  007
      */
     public static final String API_DELETE_USER = BuildConfig.API_SERVER_URL + "?ct=user&ac=delPerson";

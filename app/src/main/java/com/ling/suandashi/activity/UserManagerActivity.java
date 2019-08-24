@@ -1,6 +1,7 @@
 package com.ling.suandashi.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.ling.suandashi.data.request.tools.RequestResult;
 import com.ling.suandashi.data.request.tools.ResponseListener;
 import com.ling.suandashi.net.HttpRequestUtils;
 import com.ling.suandashi.tools.DeleteDialog;
+import com.ling.suandashi.view.RecycleViewDivider;
 import com.ling.suandashi.view.SlideRecyclerView;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class UserManagerActivity extends BasicActivity{
 
     DeleteDialog mDeleteDialog;
     UserManagerAdapter adapter;
+    RecycleViewDivider mDivider;
     List<User> mUserList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,9 @@ public class UserManagerActivity extends BasicActivity{
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
+        mDivider = new RecycleViewDivider(this,LinearLayoutManager.HORIZONTAL
+                ,1, Color.parseColor("#20894009"));
+        mRecyclerView.addItemDecoration(mDivider);
     }
 
     @Override

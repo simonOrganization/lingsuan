@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class HomePageBean implements Serializable {
 
-    public String ai;//链接
+    public String ai;//链接跳转
+    public String aiImg;//链接图片
     public HuangLi huangli;
     public XingZuo xingzuo;
     public List<HomeModule> module;
@@ -22,7 +23,7 @@ public class HomePageBean implements Serializable {
     }
 
 
-    class HomeModule{
+    public class HomeModule{
         public String modelName;
         public int id;
         public String modelPic;
@@ -34,32 +35,35 @@ public class HomePageBean implements Serializable {
         public String modelVar;
         public String modelThird;
     }
-    class XingZuo{
+    public class XingZuo{
         public String name;//星座名称
         public Day day;//当日运势
     }
-    class Day {
-        public String love_txt;
-        public String work_txt;
-        public String lucky_color;
-        public String lucky_time;
-        public String lucky_direction;
-        public String time;
-        public String money_txt;
-        public String general_txt;
-        public String grxz;
-        public String day_notice;
+    public class Day {
+        public String love_txt;//爱情运势
+        public String work_txt;//工作运势
+        public String lucky_color;//吉色
+        public String lucky_time;//吉时
+        public String lucky_direction;//吉利方位
+        public String time;//时间
+        public String money_txt;//财富运势
+        public String general_txt;//运势简评
+        public String grxz;//贵人星座
+        public String day_notice;//今日提醒
 
-        public int work_star;
-        public int money_star;
-        public int love_star;
-        public int summary_star;
-        public int lucky_num;
+        public int work_star;//工作指数
+        public int money_star;//财富指数
+        public int love_star;//爱情指数
+        public int summary_star;//综合指数
+        public int lucky_num;//幸运数字
 
     }
 
-    class HuangLi{
+    public class HuangLi{
         public String Yi;//易
         public String Ji;//忌
+        public String GregorianDateTime;//日期
+        public String LMonth;//农历 月
+        public String LDay;//农历 日
     }
 }

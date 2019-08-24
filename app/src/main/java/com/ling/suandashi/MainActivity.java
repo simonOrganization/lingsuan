@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ling.suandashi.base.BasicActivity;
@@ -25,6 +26,7 @@ public class MainActivity extends BasicActivity implements ViewPager.OnPageChang
 
     @BindView(R.id.container)
     NoScrollViewPager mViewPager;
+
 
     @BindView(R.id.tab_yunshi_tv)
     TextView tab_yunshi_tv;

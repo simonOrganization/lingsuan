@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">灵算</string>
+    <string name="app_name">灵算大师</string>
 
     <!-- Permission grant text -->
     <string name="grant_tip_message">为保证正常使用体验，请为应用授权</string>

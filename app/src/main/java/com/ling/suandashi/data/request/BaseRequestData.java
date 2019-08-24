@@ -1,7 +1,9 @@
 package com.ling.suandashi.data.request;
 
+import com.ling.suandashi.BuildConfig;
 import com.ling.suandashi.data.request.tools.RequestResult;
 import com.ling.suandashi.net.RetrofitTools;
+import com.ling.suandashi.tools.CommonUtils;
 
 import org.json.JSONException;
 
@@ -19,6 +21,10 @@ public abstract class BaseRequestData<T> implements RequestData {
 
     public BaseRequestData() {
         params = new HashMap<>();
+        params.put("app_version", BuildConfig.VERSION_NAME);
+        params.put("app_bundleid", BuildConfig.APPLICATION_ID);
+        params.put("app_name", "灵算大师");
+        params.put("iemi", CommonUtils.getPhoneIMEI());
     }
 
     public void setJson(String json) {

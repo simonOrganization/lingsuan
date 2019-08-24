@@ -27,7 +27,7 @@ public class VersionActivity extends BasicActivity{
         title.setText("版本说明");
     }
 
-    @OnClick({R.id.version_secret_rl,R.id.version_agreement_rl})
+    @OnClick({R.id.version_secret_rl,R.id.version_agreement_rl,R.id.base_title_back})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.version_agreement_rl:
