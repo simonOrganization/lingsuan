@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroud_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/backgroud_title"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/base_title_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/nav_back"/>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="5dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/search"/>
+
+            <EditText
+                android:id="@+id/dream_search_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:textColor="#403E3B"
+                android:textSize="14sp"
+                android:background="@null"
+                android:textCursorDrawable="@null"
+                android:singleLine="true"
+                android:inputType="text"
+                android:imeOptions="actionSearch"
+                android:hint="点击搜索你的梦境"/>
+            <RelativeLayout
+                android:id="@+id/dream_search_delete_rl"
+                android:layout_width="30dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/search_delete"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dream_search_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/dream_search_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/dream_search_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            android:text="暂无结果"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:drawableTop="@mipmap/default_nosearch"
+            android:drawablePadding="8dp"/>
+        <ImageView
+            android:layout_below="@+id/dream_search_tv"
+            android:id="@+id/dream_search_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/button_backdream"/>
+    </RelativeLayout>
+</LinearLayout>

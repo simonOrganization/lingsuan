@@ -35,9 +35,33 @@ public class UrlLists {
      * 添加编辑联系人  009
      */
     public static final String API_ADD_USER = BuildConfig.API_SERVER_URL + "?ct=user&ac=editPerson";
+    /**
+     * 解梦文章列表  010
+     */
+    public static final String API_POST_LIST = BuildConfig.API_SERVER_URL + "?ct=service&ac=postList";
 
     /**
      * 首页黄历星座接口  011
      */
     public static final String API_HOME = BuildConfig.API_SERVER_URL + "?ct=service&ac=init";
+
+    /**
+     * 解梦文章详情  012
+     */
+    public static final String API_DREAM_TITLE_DETAIL = BuildConfig.API_SERVER_URL + "?ct=service&ac=postDetail";
+
+    /**
+     * 解梦搜索  013
+     */
+    public static final String API_DREAM_SEARCH = BuildConfig.API_SERVER_URL + "?ct=service&ac=jiemeng";
+
+    /**
+     * 星座运势  014
+     */
+    public static final String API_XINGZUO = BuildConfig.API_SERVER_URL + "?ct=service&ac=xingzuo";
+
+    /**
+     * 个人运势  015
+     */
+    public static final String API_PERSON_FORTUNE = BuildConfig.API_SERVER_URL + "?ct=service&ac=personFortune";
 }

@@ -126,26 +126,4 @@ public class AddUserActivity extends BasicActivity{
         });
         dialog.show();
     }
-
-
-    public void showSoftInputMethod(EditText inputText) {
-        inputText.setFocusable(true);
-        inputText.setFocusableInTouchMode(true);
-        inputText.requestFocus();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(inputText, InputMethodManager.SHOW_IMPLICIT);
-    }
-
-    public void collapseSoftInputMethod(View view) {
-        try{
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
 }

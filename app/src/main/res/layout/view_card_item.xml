@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@mipmap/xingzuo_card">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/xingzuo_adapter_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/xingzuo_baiyang"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/xingzuo_adapter_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#804001"
+                android:textSize="22sp"
+                android:layout_marginTop="6dp"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="白羊座"/>
+
+            <TextView
+                android:id="@+id/xingzuo_adapter_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#804001"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:layout_gravity="center_horizontal"
+                android:text="3.21-4.19"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

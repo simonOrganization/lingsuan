@@ -1,10 +1,14 @@
 package com.ling.suandashi.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.ling.suandashi.LSApplication;
 import com.ling.suandashi.view.ZProgressDialog;
@@ -108,5 +112,24 @@ public class BasicActivity extends AppCompatActivity implements IBaseView{
 
     public ArrayList<BaseFragment> getFragmentList() {
         return mFragmentList;
+    }
+
+    public void showSoftInputMethod(EditText inputText) {
+        inputText.setFocusable(true);
+        inputText.setFocusableInTouchMode(true);
+        inputText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(inputText, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    public void collapseSoftInputMethod(View view) {
+        try{
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

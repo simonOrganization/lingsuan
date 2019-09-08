@@ -57,9 +57,6 @@ public class SplashActivity extends BasicActivity {
 
     private void initViews(){
         viewPager = findViewById(R.id.loading_viewpage);
-        if(TextUtils.isEmpty(UserSession.getInstances().getValue(UserSession.USER_ID,""))){
-            UserSession.getInstances().saveValue(UserSession.USER_ID, CommonUtils.getPhoneIMEI()+"92");
-        }
     }
 
     @Override
@@ -110,6 +107,9 @@ public class SplashActivity extends BasicActivity {
     }
 
     private void gotoSetp() {
+        if(TextUtils.isEmpty(UserSession.getInstances().getValue(UserSession.USER_ID,""))){
+            UserSession.getInstances().saveValue(UserSession.USER_ID, CommonUtils.getPhoneIMEI()+"92");
+        }
         /*
          * 此处进行首次加载判断
          * 1. 如果是第一次加载则显示引导页

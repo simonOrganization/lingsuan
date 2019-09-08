@@ -33,6 +33,11 @@
         <activity android:name=".activity.UserManagerActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.AddUserActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.WebActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DreamActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DreamDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DreamSearchActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.XingZuoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PersonYunShiActivity" android:screenOrientation="portrait"/>
 
         <service android:name=".LsService" />
     </application>

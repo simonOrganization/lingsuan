@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ling.suandashi.R;
 import com.ling.suandashi.activity.AddUserActivity;
+import com.ling.suandashi.activity.DreamActivity;
+import com.ling.suandashi.activity.PersonYunShiActivity;
 import com.ling.suandashi.activity.UserManagerActivity;
 import com.ling.suandashi.activity.WebActivity;
+import com.ling.suandashi.activity.XingZuoActivity;
 import com.ling.suandashi.adapter.HomeViewPagerListAdapter;
 import com.ling.suandashi.base.BaseFragment;
 import com.ling.suandashi.base.DefaultListener;
@@ -382,7 +385,7 @@ public class FgHome extends BaseFragment {
     }
 
     @OnClick({R.id.home_login_rl,R.id.home_login_iv,R.id.home_login_login_qiehuan,R.id.home_ai_img
-                ,R.id.home_no_internet_iv})
+                ,R.id.home_no_internet_iv,R.id.home_login_yunshi,R.id.home_login_mingpan,R.id.home_xingzuo_more})
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -393,6 +396,22 @@ public class FgHome extends BaseFragment {
                 break;
             case R.id.home_login_login_qiehuan:
                 intent = new Intent(getContext(), UserManagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.home_login_yunshi://个人运势
+                intent = new Intent(getContext(), PersonYunShiActivity.class);
+                intent.putExtra(PersonYunShiActivity.usrName,mUser.getName());
+                intent.putExtra(PersonYunShiActivity.usrBirthday,"阳历："+CommonUtils.birthdayToDay(mUser.getBrithday())+" "+mUser.getHour()+"时");
+                intent.putExtra(PersonYunShiActivity.dataBirthday,mUser.getBrithday());
+                startActivity(intent);
+                break;
+            case R.id.home_login_mingpan://周公解梦
+                intent = new Intent(getContext(), DreamActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.home_xingzuo_more://星座更多
+                intent = new Intent(getContext(), XingZuoActivity.class);
+                intent.putExtra("xingzuo",homePageBean.xingzuo.name);
                 startActivity(intent);
                 break;
             case R.id.home_ai_img://AI全面预测跳转
