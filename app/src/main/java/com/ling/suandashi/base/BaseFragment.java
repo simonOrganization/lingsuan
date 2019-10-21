@@ -73,4 +73,26 @@ public class BaseFragment extends Fragment {
                 imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         }
     }
+
+    protected boolean isVisible;
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            isVisible = true;
+            onVisible();
+        }else{
+            isVisible = false;
+            onInVisible();
+        }
+    }
+
+    public void onVisible(){
+
+    }
+
+    public void onInVisible(){
+
+    }
 }

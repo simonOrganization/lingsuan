@@ -1,9 +1,22 @@
 package com.ling.suandashi.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -73,11 +86,18 @@ public class PersonYunShiActivity extends BasicActivity{
     @BindView(R.id.person_yunshi_month_love_tv)
     TextView month_love_tv;
 
+    @BindView(R.id.person_yunshi_img)
+    ImageView img;
 
     public static final String usrName = "USRNAME";
     public static final String usrBirthday = "USRBIRTHDAY";
     public static final String dataBirthday = "DATABIRTHDAY";
     private PersonFortuneBean mBean;
+
+    private SensorManager mSensorManager;
+    private SensorEventListener mSensorEventListener;
+    private float val;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +109,26 @@ public class PersonYunShiActivity extends BasicActivity{
         birthday.setText(getIntent().getStringExtra(usrBirthday));
 
         loadData(getIntent().getStringExtra(dataBirthday));
+
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mSensorEventListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                RotateAnimation animation = new RotateAnimation
+                        (val, -event.values[0], Animation.RELATIVE_TO_SELF, 0.5f, Animation.
+                                RELATIVE_TO_SELF, 0.5f);
+                animation.setFillAfter(true);
+                img.startAnimation(animation);
+                //让动画停留在在结束的位置
+                //记录上一次的角度
+                val = -event.values[0];
+            }
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+        mSensorManager.registerListener(mSensorEventListener,mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
     }
 
     private void loadData(String dataBirthday) {
@@ -191,5 +231,9 @@ public class PersonYunShiActivity extends BasicActivity{
         }
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSensorManager.unregisterListener(mSensorEventListener);
+    }
 }

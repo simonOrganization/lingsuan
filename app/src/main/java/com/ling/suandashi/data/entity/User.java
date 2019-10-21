@@ -2,11 +2,14 @@ package com.ling.suandashi.data.entity;
 
 import com.google.gson.Gson;
 
+import java.io.Serializable;
+
 /**
  * 用户信息
  */
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = -9034588307651618103L;
     private int id; //联系人ID
     private String name; //联系人姓名
     private String brithday; //联系人生日

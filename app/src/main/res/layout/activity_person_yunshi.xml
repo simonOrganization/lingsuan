@@ -117,11 +117,12 @@
                     android:background="@mipmap/yunhsi_button_admin"
                     android:text="年度运势"/>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/person_yunshi_day_ll"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -265,6 +266,14 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/person_yunshi_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:src="@mipmap/bitmap"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

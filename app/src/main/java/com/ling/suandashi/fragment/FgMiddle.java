@@ -30,6 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Imxu
@@ -47,12 +48,13 @@ public class FgMiddle extends BaseFragment {
 
     MiddleModuleAdapter mAdapter;
     private float alpha = 0;
+    Unbinder mUnbinder;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_middle,container,false);
-        ButterKnife.bind(this,view);
+        mUnbinder = ButterKnife.bind(this,view);
         return view;
     }
 
@@ -72,8 +74,19 @@ public class FgMiddle extends BaseFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onDestroy() {
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onVisible() {
+        super.onVisible();
+        if (!isResumed()) {
+            return;
+        }
         loadData();
     }
 

@@ -64,4 +64,9 @@ public class UrlLists {
      * 个人运势  015
      */
     public static final String API_PERSON_FORTUNE = BuildConfig.API_SERVER_URL + "?ct=service&ac=personFortune";
+
+    /**
+     * 订单列表  016
+     */
+    public static final String API_ORDER_LIST = BuildConfig.API_SERVER_URL + "?ct=info&ac=infoList";
 }

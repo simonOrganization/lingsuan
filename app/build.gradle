@@ -18,11 +18,11 @@ android {
             storeFile file(properties.getProperty('storeFile'))
             storePassword 'hugboga@guide'
         }
-
     }
+
     flavorDimensions "flavor"
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId 'com.ling.suandashi'
         minSdkVersion rootProject.ext.minSdkVersion
@@ -42,12 +42,10 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            multiDexKeepProguard file('multidex-config.txt')
             signingConfig signingConfigs.ling
         }
         debug {
             minifyEnabled false
-            multiDexKeepProguard file('multidex-config.txt')
             signingConfig signingConfigs.ling
         }
     }

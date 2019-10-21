@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class HomePageBean implements Serializable {
 
+    private static final long serialVersionUID = -4333512107649834126L;
     public String ai;//链接跳转
     public String aiImg;//链接图片
     public HuangLi huangli;
@@ -23,7 +24,8 @@ public class HomePageBean implements Serializable {
     }
 
 
-    public class HomeModule{
+    public class HomeModule implements Serializable{
+        private static final long serialVersionUID = 8077395652553822527L;
         public String modelName;
         public int id;
         public String modelPic;
@@ -35,11 +37,13 @@ public class HomePageBean implements Serializable {
         public String modelVar;
         public String modelThird;
     }
-    public class XingZuo{
+    public class XingZuo implements Serializable{
+        private static final long serialVersionUID = 7488615574293207876L;
         public String name;//星座名称
         public Day day;//当日运势
     }
-    public class Day {
+    public class Day implements Serializable{
+        private static final long serialVersionUID = -4345088049461180347L;
         public String love_txt;//爱情运势
         public String work_txt;//工作运势
         public String lucky_color;//吉色
@@ -59,7 +63,8 @@ public class HomePageBean implements Serializable {
 
     }
 
-    public class HuangLi{
+    public class HuangLi implements Serializable{
+        private static final long serialVersionUID = 3962165719705903183L;
         public String Yi;//易
         public String Ji;//忌
         public String GregorianDateTime;//日期

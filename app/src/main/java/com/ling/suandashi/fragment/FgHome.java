@@ -50,6 +50,7 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @author Imxu
@@ -128,12 +129,13 @@ public class FgHome extends BaseFragment {
     private HomePageBean homePageBean;
     private float alpha = 0;
 
+    Unbinder mUnbinder;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
-        ButterKnife.bind(this,view);
+        mUnbinder = ButterKnife.bind(this,view);
         return view;
     }
 
@@ -148,11 +150,25 @@ public class FgHome extends BaseFragment {
                 title_rl.setAlpha(alpha);
             }
         });
+
+        loadUserData();
+        loadHomeData(isFirstShow);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onDestroy() {
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onVisible() {
+        super.onVisible();
+        if (!isResumed()) {
+            return;
+        }
         loadUserData();
         loadHomeData(isFirstShow);
     }

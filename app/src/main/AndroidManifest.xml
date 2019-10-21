@@ -38,6 +38,7 @@
         <activity android:name=".activity.DreamSearchActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.XingZuoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.PersonYunShiActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.OrderActivity" android:screenOrientation="portrait"/>
 
         <service android:name=".LsService" />
     </application>

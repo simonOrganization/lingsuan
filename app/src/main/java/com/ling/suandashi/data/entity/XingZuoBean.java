@@ -2,13 +2,16 @@ package com.ling.suandashi.data.entity;
 
 import com.google.gson.Gson;
 
+import java.io.Serializable;
+
 /**
  * @author Imxu
  * @time 2019/9/2 14:46
  * @des ${TODO}
  */
-public class XingZuoBean {
+public class XingZuoBean implements Serializable{
 
+    private static final long serialVersionUID = -5877213052546433944L;
     public String name;
     public XingZuo day;
     public XingZuo tomorrow;
@@ -20,7 +23,8 @@ public class XingZuoBean {
         return new Gson().fromJson(jsonStr,this.getClass());
     }
 
-    public class XingZuo {
+    public class XingZuo implements Serializable {
+        private static final long serialVersionUID = 3798310457654993282L;
         public String love_txt;//爱情运势
         public String work_txt;//工作运势
         public String lucky_color;//吉色

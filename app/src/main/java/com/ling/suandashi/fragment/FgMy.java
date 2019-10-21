@@ -20,6 +20,7 @@ import com.ling.suandashi.R;
 import com.ling.suandashi.activity.AddUserActivity;
 import com.ling.suandashi.activity.AgreementActivity;
 import com.ling.suandashi.activity.LoginActivity;
+import com.ling.suandashi.activity.OrderActivity;
 import com.ling.suandashi.activity.SecretActivity;
 import com.ling.suandashi.activity.UserManagerActivity;
 import com.ling.suandashi.activity.VersionActivity;
@@ -46,6 +47,7 @@ import androidx.fragment.app.FragmentActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * @author Imxu
@@ -67,12 +69,13 @@ public class FgMy extends BaseFragment {
     TextView userBirthday;//用户生日
     
     User mUser;
+    Unbinder mUnbinder;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mine,container,false);
-        ButterKnife.bind(this,view);
+        mUnbinder = ButterKnife.bind(this,view);
         return view;
     }
 
@@ -80,6 +83,14 @@ public class FgMy extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         showUserInfo();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
+        }
+        super.onDestroy();
     }
 
     /**
@@ -108,9 +119,13 @@ public class FgMy extends BaseFragment {
         nologin_root.setVisibility(View.GONE);
         login_root.setVisibility(View.VISIBLE);
     }
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onVisible() {
+        super.onVisible();
+        if (!isResumed()) {
+            return;
+        }
         loadUserData();
     }
 
@@ -153,7 +168,7 @@ public class FgMy extends BaseFragment {
     }
 
     @OnClick({R.id.version_cache_rl,R.id.version_version_rl,R.id.version_kefu_rl,R.id.version_evaluate_rl,R.id.mine_login_rl,
-                R.id.mine_login_login_qiehuan})
+                R.id.mine_login_login_qiehuan,R.id.mine_order_rl})
     public void onClick(View view){
         Intent intent;
         switch (view.getId()){
@@ -187,6 +202,10 @@ public class FgMy extends BaseFragment {
                 break;
             case R.id.mine_login_rl://添加用户信息
                 intent = new Intent(getContext(), AddUserActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.mine_order_rl://进入订单详情
+                intent = new Intent(getContext(), OrderActivity.class);
                 startActivity(intent);
                 break;
         }
