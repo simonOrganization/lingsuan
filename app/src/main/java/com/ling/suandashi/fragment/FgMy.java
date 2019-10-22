@@ -11,21 +11,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
-import com.bumptech.glide.Glide;
-import com.cclx.mobile.permission.OnConsumerPermissionListener;
-import com.cclx.mobile.permission.OnDenyPermissionListener;
-import com.cclx.mobile.permission.PermissionUtils;
-import com.ling.suandashi.LSApplication;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
 import com.ling.suandashi.R;
 import com.ling.suandashi.activity.AddUserActivity;
-import com.ling.suandashi.activity.AgreementActivity;
 import com.ling.suandashi.activity.LoginActivity;
 import com.ling.suandashi.activity.OrderActivity;
-import com.ling.suandashi.activity.SecretActivity;
 import com.ling.suandashi.activity.UserManagerActivity;
 import com.ling.suandashi.activity.VersionActivity;
 import com.ling.suandashi.base.BaseFragment;
-import com.ling.suandashi.base.DefaultListener;
 import com.ling.suandashi.data.UserSession;
 import com.ling.suandashi.data.entity.User;
 import com.ling.suandashi.data.request.ContactListRequest;
@@ -38,12 +32,10 @@ import com.ling.suandashi.net.HttpRequestUtils;
 import com.ling.suandashi.tools.CommonUtils;
 import com.ling.suandashi.tools.DialogUtils;
 
-import java.io.File;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -197,8 +189,8 @@ public class FgMy extends BaseFragment {
                 grantCamera();
                 break;
             case R.id.version_evaluate_rl://评价应用
-                intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
+//                intent = new Intent(getContext(), LoginActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.mine_login_rl://添加用户信息
                 intent = new Intent(getContext(), AddUserActivity.class);
@@ -212,22 +204,24 @@ public class FgMy extends BaseFragment {
     }
 
     private void grantCamera() {
-        PermissionUtils.getPermissions((FragmentActivity) getContext(), new OnConsumerPermissionListener() {
-            @Override
-            public void onAllowed(String permissionName, String permissionDesc) {
-                //意见反馈
-                try {
-                    FeedbackAPI.openFeedbackActivity();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new OnDenyPermissionListener() {
-            @Override
-            public void onDeny(String permissionName, String permissionDesc) {
-                PermissionUtils.showPromptDialog(LSApplication.GlobalContext,permissionDesc);
-            }
-        },android.Manifest.permission.CAMERA);
+
+        XXPermissions.with(getActivity()).permission(android.Manifest.permission.CAMERA)
+                .request(new OnPermission() {
+                    @Override
+                    public void hasPermission(List<String> granted, boolean isAll) {
+                        //意见反馈
+                        try {
+                            FeedbackAPI.openFeedbackActivity();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean quick) {
+
+                    }
+                });
     }
 
 }

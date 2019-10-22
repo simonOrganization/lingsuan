@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.cclx.mobile.permission.OnConsumerPermissionListener;
-import com.cclx.mobile.permission.OnDenyPermissionListener;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.XXPermissions;
 import com.ling.suandashi.base.BasicActivity;
 import com.ling.suandashi.data.UserSession;
 import com.ling.suandashi.tools.CommonUtils;
@@ -75,17 +75,18 @@ public class SplashActivity extends BasicActivity {
      * 授权获取手机信息权限
      */
     private void grantPhone() {
-        com.cclx.mobile.permission.PermissionUtils.getPermissions(this, new OnConsumerPermissionListener() {
-            @Override
-            public void onAllowed(String permissionName, String permissionDesc) {
-                grantStorage();
-            }
-        }, new OnDenyPermissionListener() {
-            @Override
-            public void onDeny(String permissionName, String permissionDesc) {
-                com.cclx.mobile.permission.PermissionUtils.showPromptDialog(LSApplication.GlobalContext,permissionDesc);
-            }
-        },android.Manifest.permission.READ_PHONE_STATE);
+        XXPermissions.with(this).permission(android.Manifest.permission.READ_PHONE_STATE)
+                .request(new OnPermission() {
+                    @Override
+                    public void hasPermission(List<String> granted, boolean isAll) {
+                        grantStorage();
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean quick) {
+
+                    }
+                });
     }
 
 
@@ -93,17 +94,18 @@ public class SplashActivity extends BasicActivity {
      * 授权读取存储空间权限
      */
     private void grantStorage() {
-        com.cclx.mobile.permission.PermissionUtils.getPermissions(this, new OnConsumerPermissionListener() {
-            @Override
-            public void onAllowed(String permissionName, String permissionDesc) {
-                gotoSetp();
-            }
-        }, new OnDenyPermissionListener() {
-            @Override
-            public void onDeny(String permissionName, String permissionDesc) {
-                com.cclx.mobile.permission.PermissionUtils.showPromptDialog(LSApplication.GlobalContext,permissionDesc);
-            }
-        },android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        XXPermissions.with(this).permission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .request(new OnPermission() {
+                    @Override
+                    public void hasPermission(List<String> granted, boolean isAll) {
+                        gotoSetp();
+                    }
+
+                    @Override
+                    public void noPermission(List<String> denied, boolean quick) {
+
+                    }
+                });
     }
 
     private void gotoSetp() {
